@@ -33,14 +33,11 @@ const person = {
   name: "Alex",
   age: 17,
 
-  greet(name, age){
-    this.name = name;
-    this.age = age;
+  greet() {
     // TODO: Use this.name and this.age to build a return string.
     //       The format should be: "Hi, I'm [name] and I'm [age] years old."
     //       Do NOT hard-code "Alex" or "17" — use this!
     return `Hi, I'm ${this.name} and I'm ${this.age} years old.`;
-
   }
 };
 
@@ -63,22 +60,22 @@ const counter = {
 
   increment(amount) {
     // TODO: Add "amount" to this.count
-
+    this.count += amount;
   },
 
   decrement(amount) {
     // TODO: Subtract "amount" from this.count
-
+    this.count -= amount;
   },
 
   reset() {
     // TODO: Set this.count back to 0
-
+    this.count = 0;
   },
 
   getCount() {
     // TODO: Return the current value of this.count
-
+    return this.count;
   }
 };
 
@@ -109,14 +106,15 @@ function Animal(name, sound) {
   // TODO: Use "this" to store name and sound as properties.
   //       this._______ = _______
   //       this._______ = _______
-
+  this.name = name;
+  this.sound = sound;
 }
 
 Animal.prototype.speak = function() {
   // TODO: Return a string in this format:
   //       "Rex says woof!"
   //       Use this.name and this.sound — don't hard-code values.
-
+  return `${this.name} says ${this.sound}!`;
 };
 
 // Uncomment to test in the console:
@@ -141,17 +139,18 @@ Animal.prototype.speak = function() {
 class Rectangle {
   constructor(width, height) {
     // TODO: Store width and height on "this"
-
+    this.width = width;
+    this.height = height;
   }
 
   area() {
     // TODO: Return width × height using this.width and this.height
-
+    return this.width * this.height;
   }
 
   perimeter() {
     // TODO: Return 2 × (width + height) using this.width and this.height
-
+    return 2 * (this.width + this.height);
   }
 
   describe() {
@@ -159,7 +158,7 @@ class Rectangle {
     //       Call this.area() and this.perimeter() — use "this"!
     //
     //       Example: "This rectangle has an area of 24 and a perimeter of 20."
-
+    return `This rectangle has an area of ${this.area()} and a perimeter of ${this.perimeter()}.`;
   }
 }
 
@@ -196,13 +195,15 @@ class ShoppingCart {
   addItem(name, price) {
     // TODO: Push an object { name, price } into this.items
     // TODO: Return this  ← this is what enables chaining!
-
+    this.items.push({ name, price });
+    return this;
   }
 
   applyDiscount(percent) {
     // TODO: Store percent in this.discount
     // TODO: Return this  ← don't forget!
-
+    this.discount = percent;
+    return this;
   }
 
   getTotal() {
@@ -211,7 +212,8 @@ class ShoppingCart {
     //       Return the final total as a number.
     //
     //       Formula: total × (1 - this.discount / 100)
-
+    const total = this.items.reduce((sum, item) => sum + item.price, 0);
+    return total * (1 - this.discount / 100);
   }
 }
 
